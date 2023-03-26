@@ -1,6 +1,11 @@
 let box = document.querySelectorAll('.box')
 let promptBtn = document.querySelectorAll('.promptBtn');
 let buttonSelect = document.getElementsByClassName('buttonSelect');
+let titleScreen = document.querySelector('#titleScreen');
+let chooseBox = document.querySelector('#chooseBox')
+let gameContainer = document.querySelector('#container');
+let resultScreen = document.querySelector('#resultScreen');
+let retryBtn = document.querySelector('#retryBtn');
 
 
 let playerOne = [];
@@ -15,10 +20,20 @@ let drawState = null
 
 for (const e of buttonSelect) {
     e.addEventListener('click', () => {
+        const startTl = gsap.timeline();
+
         playerTurn = e.textContent;
         playState = true;
         console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
+        startTl.to(chooseBox, {scale:.8 ,opacity: 0, display: 'none', ease: "expo.out" })
+        startTl.to(titleScreen, { y:-100,fontSize: '4rem', ease: "expo.out" })
+        startTl.to(container,{ display: 'grid', scale: 1, opacity: 1, ease: "expo.out" },'<.1')
+        startTl.from(box, { opacity: 0, scale: .5, stagger: 0.02, ease: "expo.out" },'<')
+        // chooseBox.style.display = 'none';
+        // container.style.display = 'grid';
+        // titleScreen.style.fontSize = '3rem'
+
     })
 }
 
@@ -47,10 +62,13 @@ box.forEach(e => {
         if (e.textContent === 'X' || e.textContent === 'O' || playerTurn === null || playState === false) {
             return;
         }
+        gsap.fromTo(e, { scale: .5, ease: "expo.out" }, { scale: 1, ease: "expo.out" })
         switchSymbol(e)
         drawChecker()
     })
 });
+
+
 
 
 
@@ -78,6 +96,7 @@ function winChecker(array, arrayName){
             console.log(`${arrayName} wins!`)
             playState = false;
             drawState = false;
+            retryScreen();
         }
     });
    
@@ -91,7 +110,62 @@ function drawChecker() {
         }
     }
     if(drawState === null){
-    return console.log('draw');
+    return retryScreen();
     }
 }
 
+
+
+for (const e of box) {
+    e.addEventListener('pointerenter', () => {
+        gsap.to(e, { backgroundColor: '#1E2633', ease: "expo.out" })
+    })
+}
+
+for (const e of box) {
+    e.addEventListener('pointerleave', () => {
+        gsap.to(e, { backgroundColor: '#263041', ease: "expo.out" })
+    })
+}
+
+
+function retryScreen(){
+    let winner = document.querySelector('#winner');
+    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, ease: "expo.out" }, { opacity: 1, ease: "expo.out", delay: .3})
+    if (drawState === null){
+        winner.textContent = `It's a Draw!`;
+    }
+
+    if (drawState === false) {
+        winner.textContent = `${playerTurn} wins!`;
+    }
+}
+
+
+function allReset(){
+    drawState = null;
+    playerOne = [];
+    playerTwo = [];
+    playState = true;
+
+    gsap.to(resultScreen, { opacity: 0, display: 'none',  ease: "expo.out" })
+
+    for (const e of box) {
+        e.textContent = ''
+    }
+    playerTurn = 'X'
+
+    //CREATE playerTurn randomizer
+}
+
+
+retryBtn.addEventListener('click', ()=>{
+    allReset()
+})
+
+//Add winning pattern animation using data attributes and winningPattern
+
+
+//Create playerTurn indicator
+
+//Create score indicator
