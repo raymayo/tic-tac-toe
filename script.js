@@ -57,7 +57,6 @@ box.forEach(e => {
 function gridChecker(array, item, arrayName) {
     array.push(item);
     array.sort();
-    console.log(arrayName + ': ' + array)
 }
 
 
@@ -80,7 +79,6 @@ function winChecker(array, arrayName){
             playState = false;
             drawState = false;
         }
-
     });
    
 }
