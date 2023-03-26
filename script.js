@@ -8,6 +8,7 @@ let playerTwo = [];
 let playerTurn = null;
 
 let playState = false;
+let drawState = null
 
 
 
@@ -16,7 +17,7 @@ for (const e of buttonSelect) {
     e.addEventListener('click', () => {
         playerTurn = e.textContent;
         playState = true;
-        console.log(playState)
+        console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
     })
 }
@@ -47,7 +48,7 @@ box.forEach(e => {
             return;
         }
         switchSymbol(e)
-        // drawChecker()
+        drawChecker()
     })
 });
 
@@ -77,13 +78,13 @@ function winChecker(array, arrayName){
         if (isPresent) {
             console.log(`${arrayName} wins!`)
             playState = false;
+            drawState = false;
         }
 
     });
    
 }
 
-//Put winChecker inside drawChecker
 
 function drawChecker() {
     for (const div of box) {
@@ -91,6 +92,8 @@ function drawChecker() {
             return false;
         }
     }
+    if(drawState === null){
     return console.log('draw');
+    }
 }
 
