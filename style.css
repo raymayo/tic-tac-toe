@@ -145,6 +145,7 @@ a{
     display: flex;
     font-size: .4rem;
     column-gap: 4%;
+    display: none;
 }
 
 
@@ -158,6 +159,11 @@ a{
     border-radius: 3px;
 }
 
+#playerTurnIndicator {
+    color: var(--textColor);
+    display: none;
+}
+
 .playerScores {
     display: grid;
     gap: 5%;
@@ -168,9 +174,6 @@ a{
     font-size: 1.5rem;
 }
 
-#playerTurnIndicator{
-    color: var(--textColor);
-}
 
 #playerTurnText{
     color: var(--accentColor);

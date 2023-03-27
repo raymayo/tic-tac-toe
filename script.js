@@ -6,6 +6,9 @@ let chooseBox = document.querySelector('#chooseBox')
 let gameContainer = document.querySelector('#container');
 let resultScreen = document.querySelector('#resultScreen');
 let retryBtn = document.querySelector('#retryBtn');
+let playerScoreIndicator = document.querySelector('#playerScoreIndicator')
+let playerTurnIndicator = document.querySelector('#playerTurnIndicator')
+let playerTurnText = document.querySelector("#playerTurnText")
 
 
 let playerOne = [];
@@ -23,6 +26,7 @@ for (const e of buttonSelect) {
         const startTl = gsap.timeline();
 
         playerTurn = e.textContent;
+        changePlayerTurn(playerTurn);
         playState = true;
         console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
@@ -30,8 +34,13 @@ for (const e of buttonSelect) {
         startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out'})
         startTl.to(chooseBox, {opacity: 0, display: 'none', ease: "expo.out" },'<')
         startTl.to(titleScreen, { y:-100,fontSize: '4rem', ease: "expo.out" })
+        startTl.fromTo(playerScoreIndicator, { display: 'none', opacity: 0,y:-100, ease: 'expo.out' }, { display: 'flex', opacity: 1,y:0, ease: 'expo.out' }, '<')
+        startTl.fromTo(playerTurnIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'initial', opacity: 1, y: 0, ease: 'expo.out' }, '<')
         startTl.to(container,{ display: 'grid', scale: 1, opacity: 1, ease: "expo.out" },'<.1')
         startTl.from(box, { opacity: 0, scale: .5, stagger: 0.02, ease: "expo.out" },'<')
+        
+
+
     })
 }
 
@@ -62,6 +71,7 @@ box.forEach(e => {
         }
         gsap.fromTo(e, { scale: .5, ease: "expo.out" }, { scale: 1, ease: "expo.out" })
         switchSymbol(e)
+        changePlayerTurn(playerTurn)
         drawChecker()
     })
 });
@@ -147,10 +157,9 @@ function allReset(){
     playState = true;
 
     gsap.to(resultScreen, { opacity: 0, display: 'none',  ease: "expo.out" })
+    gsap.to(box,{textContent: '', ease: 'expo.out'})
+    gsap.from(box, {scale: 0, stagger:0.05, ease: "expo.out" })
 
-    for (const e of box) {
-        e.textContent = ''
-    }
     playerTurn = 'X'
 
     //CREATE playerTurn randomizer
@@ -166,5 +175,8 @@ retryBtn.addEventListener('click', ()=>{
 
 
 //Create playerTurn indicator
+function changePlayerTurn(playerTurn){
+    gsap.to(playerTurnText, { textContent: `${playerTurn}`, ease: "expo.out" })
+}
 
 //Create score indicator
