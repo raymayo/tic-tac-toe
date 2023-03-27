@@ -26,27 +26,25 @@ for (const e of buttonSelect) {
         playState = true;
         console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
-        startTl.to(chooseBox, {scale:.8 ,opacity: 0, display: 'none', ease: "expo.out" })
+
+        startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out'})
+        startTl.to(chooseBox, {opacity: 0, display: 'none', ease: "expo.out" },'<')
         startTl.to(titleScreen, { y:-100,fontSize: '4rem', ease: "expo.out" })
         startTl.to(container,{ display: 'grid', scale: 1, opacity: 1, ease: "expo.out" },'<.1')
         startTl.from(box, { opacity: 0, scale: .5, stagger: 0.02, ease: "expo.out" },'<')
-        // chooseBox.style.display = 'none';
-        // container.style.display = 'grid';
-        // titleScreen.style.fontSize = '3rem'
-
     })
 }
 
 function switchSymbol(e) {
     switch (playerTurn) {
         case 'X':
-            gridChecker(playerOne, parseInt(e.getAttribute('data-num')), playerTurn)
+            gridChecker(playerOne, parseInt(e.getAttribute('data-num')))
             winChecker(playerOne, playerTurn)
             e.textContent = playerTurn;
             playerTurn = 'O';
             break;
         case 'O':
-            gridChecker(playerTwo, parseInt(e.getAttribute('data-num')), playerTurn)
+            gridChecker(playerTwo, parseInt(e.getAttribute('data-num')))
             winChecker(playerTwo, playerTurn)
             e.textContent = playerTurn;
             playerTurn = 'X';
@@ -72,7 +70,7 @@ box.forEach(e => {
 
 
 
-function gridChecker(array, item, arrayName) {
+function gridChecker(array, item) {
     array.push(item);
     array.sort();
 }
@@ -131,7 +129,7 @@ for (const e of box) {
 
 function retryScreen(){
     let winner = document.querySelector('#winner');
-    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, ease: "expo.out" }, { opacity: 1, ease: "expo.out", delay: .3})
+    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, backdropFilter: 'blur(0px)', ease: "expo.out" }, { opacity: 1, backdropFilter: 'blur(5px)',ease: "expo.out"})
     if (drawState === null){
         winner.textContent = `It's a Draw!`;
     }
@@ -160,6 +158,7 @@ function allReset(){
 
 
 retryBtn.addEventListener('click', ()=>{
+    gsap.fromTo(retryBtn, { scale: .8, ease: "expo.out" }, { scale: 1, ease: "expo.out" })
     allReset()
 })
 

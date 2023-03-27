@@ -1,4 +1,4 @@
-*{padding: 0; margin: 0; box-sizing: border-box; font-family: 'Varela Round', sans-serif;}
+*{padding: 0; margin: 0; box-sizing: border-box; font-family: 'Varela Round', sans-serif;user-select:none;}
 
 :root{
     --bodyColor: #2D394D;
@@ -17,6 +17,7 @@ body{
     align-items: start;
     justify-items: center;
     background-color: var(--bodyColor);
+    overflow: hidden;
 }
 
 /* body > *{
@@ -123,8 +124,54 @@ a{
 #retryBtn{
     background-color: var(--accentColor);
     color: var(--contrastColor);
+    font-size: 1.5rem;
+    padding: .8rem;
 }
 
 #resultScreen > *{
     /* border: solid 1px red; */
+}
+
+#playerTurnIndicator{
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}
+
+#playerScoreIndicator {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+    display: flex;
+    font-size: .4rem;
+    column-gap: 4%;
+}
+
+
+#playerScoreIndicator > *{
+    text-align: center;
+    /* border: solid 1px red; */
+    padding: 4%;
+    width: 100px;
+    background-color: var(--contrastColor);
+    color: var(--textColor);
+    border-radius: 3px;
+}
+
+.playerScores {
+    display: grid;
+    gap: 5%;
+}
+
+.scoreSpan{
+    color: var(--accentColor);
+    font-size: 1.5rem;
+}
+
+#playerTurnIndicator{
+    color: var(--textColor);
+}
+
+#playerTurnText{
+    color: var(--accentColor);
 }
