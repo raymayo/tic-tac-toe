@@ -1,14 +1,19 @@
-let box = document.querySelectorAll('.box')
-let promptBtn = document.querySelectorAll('.promptBtn');
-let buttonSelect = document.getElementsByClassName('buttonSelect');
-let titleScreen = document.querySelector('#titleScreen');
-let chooseBox = document.querySelector('#chooseBox')
-let gameContainer = document.querySelector('#container');
-let resultScreen = document.querySelector('#resultScreen');
-let retryBtn = document.querySelector('#retryBtn');
-let playerScoreIndicator = document.querySelector('#playerScoreIndicator')
-let playerTurnIndicator = document.querySelector('#playerTurnIndicator')
-let playerTurnText = document.querySelector("#playerTurnText")
+const box = document.querySelectorAll('.box')
+const promptBtn = document.querySelectorAll('.promptBtn');
+const buttonSelect = document.getElementsByClassName('buttonSelect');
+const titleScreen = document.querySelector('#titleScreen');
+const chooseBox = document.querySelector('#chooseBox')
+const gameContainer = document.querySelector('#container');
+const resultScreen = document.querySelector('#resultScreen');
+const retryBtn = document.querySelector('#retryBtn');
+const playerScoreIndicator = document.querySelector('#playerScoreIndicator')
+const playerTurnIndicator = document.querySelector('#playerTurnIndicator')
+const playerTurnText = document.querySelector("#playerTurnText")
+const playerOneScore = document.querySelector('#playerOneScore')
+const playerTwoScore = document.querySelector('#playerTwoScore')
+const drawScore = document.querySelector('#drawScore')
+
+
 
 
 let playerOne = [];
@@ -16,9 +21,14 @@ let playerTwo = [];
 let playerTurn = null;
 
 let playState = false;
-let drawState = null
+let drawState = null;
 
+let pointState = null;
 
+let playerX = 0;
+let playerO = 0;
+let draw = 0;
+let winnerState;
 
 
 for (const e of buttonSelect) {
@@ -31,14 +41,13 @@ for (const e of buttonSelect) {
         console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
 
-        startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out'})
-        startTl.to(chooseBox, {opacity: 0, display: 'none', ease: "expo.out" },'<')
-        startTl.to(titleScreen, { y:-100,fontSize: '4rem', ease: "expo.out" })
-        startTl.fromTo(playerScoreIndicator, { display: 'none', opacity: 0,y:-100, ease: 'expo.out' }, { display: 'flex', opacity: 1,y:0, ease: 'expo.out' }, '<')
+        startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out' })
+        startTl.to(chooseBox, { opacity: 0, display: 'none', ease: "expo.out" }, '<')
+        startTl.to(titleScreen, { y: -100, fontSize: '4rem', ease: "expo.out" })
+        startTl.fromTo(playerScoreIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'flex', opacity: 1, y: 0, ease: 'expo.out' }, '<')
         startTl.fromTo(playerTurnIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'initial', opacity: 1, y: 0, ease: 'expo.out' }, '<')
-        startTl.to(container,{ display: 'grid', scale: 1, opacity: 1, ease: "expo.out" },'<.1')
-        startTl.from(box, { opacity: 0, scale: .5, stagger: 0.02, ease: "expo.out" },'<')
-        
+        startTl.to(container, { display: 'grid', scale: 1, opacity: 1, ease: "expo.out" }, '<.1')
+        startTl.from(box, { opacity: 0, scale: .5, stagger: 0.02, ease: "expo.out" }, '<')
 
 
     })
@@ -69,15 +78,12 @@ box.forEach(e => {
         if (e.textContent === 'X' || e.textContent === 'O' || playerTurn === null || playState === false) {
             return;
         }
-        gsap.fromTo(e, { scale: .5, ease: "expo.out" }, { scale: 1, ease: "expo.out" })
+        gsap.fromTo(e, { scale: .5, ease: "expo.out" }, { scale: 1, border: 'none', ease: "expo.out" })
         switchSymbol(e)
         changePlayerTurn(playerTurn)
         drawChecker()
     })
 });
-
-
-
 
 
 function gridChecker(array, item) {
@@ -97,17 +103,17 @@ const winPattern = [
     [3, 5, 7],
 ]
 
-function winChecker(array, arrayName){
+function winChecker(array, arrayName) {
     winPattern.forEach(pattern => {
         const isPresent = pattern.every(elem => array.includes(elem));
         if (isPresent) {
-            console.log(`${arrayName} wins!`)
             playState = false;
             drawState = false;
-            retryScreen();
+            winnerIndicator(playerTurn);
+            setTimeout(retryScreen, 2000);
         }
     });
-   
+
 }
 
 
@@ -117,8 +123,9 @@ function drawChecker() {
             return false;
         }
     }
-    if(drawState === null){
-    return retryScreen();
+    if (drawState === null) {
+        winnerIndicator(playerTurn);
+        setTimeout(retryScreen, 2000);
     }
 }
 
@@ -126,47 +133,53 @@ function drawChecker() {
 
 for (const e of box) {
     e.addEventListener('pointerenter', () => {
-        gsap.to(e, { backgroundColor: '#1E2633', ease: "expo.out" })
+        if (playState === false) {
+            return
+        }
+        gsap.to(e, { border: 'solid 2px #FF7A90', ease: "expo.out" })
     })
 }
 
 for (const e of box) {
     e.addEventListener('pointerleave', () => {
-        gsap.to(e, { backgroundColor: '#263041', ease: "expo.out" })
+        if (playState === false) {
+            return
+        }
+        gsap.to(e, { border: 'none', ease: "expo.out" })
     })
 }
 
 
-function retryScreen(){
+function retryScreen() {
     let winner = document.querySelector('#winner');
-    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, backdropFilter: 'blur(0px)', ease: "expo.out" }, { opacity: 1, backdropFilter: 'blur(5px)',ease: "expo.out"})
-    if (drawState === null){
+    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, backdropFilter: 'blur(0px)', ease: "expo.inout" }, { opacity: 1, backdropFilter: 'blur(5px)', ease: "expo.inout" })
+    if (drawState === null) {
         winner.textContent = `It's a Draw!`;
     }
 
     if (drawState === false) {
-        winner.textContent = `${playerTurn} wins!`;
+        console.log(winnerState)
+        // winner.textContent = `${winner} wins!`;
     }
 }
 
 
-function allReset(){
+function allReset() {
     drawState = null;
     playerOne = [];
     playerTwo = [];
     playState = true;
+    pointState = null
 
-    gsap.to(resultScreen, { opacity: 0, display: 'none',  ease: "expo.out" })
-    gsap.to(box,{textContent: '', ease: 'expo.out'})
-    gsap.from(box, {scale: 0, stagger:0.05, ease: "expo.out" })
-
+    gsap.to(resultScreen, { opacity: 0, display: 'none', ease: "expo.out" })
+    gsap.to(box, { textContent: '', border: 'none', ease: 'expo.out' })
+    gsap.from(box, { scale: 0, stagger: 0.05, ease: "expo.out" })
     playerTurn = 'X'
 
-    //CREATE playerTurn randomizer
 }
 
 
-retryBtn.addEventListener('click', ()=>{
+retryBtn.addEventListener('click', () => {
     gsap.fromTo(retryBtn, { scale: .8, ease: "expo.out" }, { scale: 1, ease: "expo.out" })
     allReset()
 })
@@ -174,9 +187,72 @@ retryBtn.addEventListener('click', ()=>{
 //Add winning pattern animation using data attributes and winningPattern
 
 
-//Create playerTurn indicator
-function changePlayerTurn(playerTurn){
+function changePlayerTurn(playerTurn) {
     gsap.to(playerTurnText, { textContent: `${playerTurn}`, ease: "expo.out" })
 }
 
+function winnerIndicator(playerTurn) {
+    if (playerTurn === 'X' && drawState === false) {
+        pointState = 0;
+        highlightWinner(playerOne)
+        pointIndicator(pointState);
+        winnerState = 'X';
+    } else if (playerTurn === 'O' && drawState === false) {
+        pointState = 1;
+        highlightWinner(playerTwo)
+        console.log(playerTwo)
+        winnerState = 'O';
+        pointIndicator(pointState);
+    } else if (drawState === null) {
+        pointState = 2;
+        pointIndicator(pointState);
+        winnerState = 'Draw';
+    }
+    return;
+}
+
+function pointIndicator(pointState) {
+
+    switch (pointState) {
+        case 0:
+            playerOneScore.textContent = `${++playerX}`
+            break;
+
+        case 1:
+            console.log(playerO)
+            playerTwoScore.textContent = `${++playerO}`
+            break;
+
+        case 2:
+            drawScore.textContent = `${++draw}`
+            break;
+
+        default:
+            break;
+    }
+}
+
+
+
+function highlightWinner(winningPlayer) {
+    const squares = document.querySelectorAll('[data-num]');
+    squares.forEach((e) => {
+        //change winning player to winning pattern
+        winningPlayer.forEach((player) => {
+            if (parseInt(e.getAttribute('data-num')) === player) {
+                gsap.to(e, { scale: .8, border: 'solid 2px #FF7A90', ease: 'expo.out' }, '<.1')
+                gsap.to(e, { scale: 1, ease: 'expo.out', delay: .2 }, '<.1')
+            }
+        })
+    })
+
+
+}
+
+
+
+
 //Create score indicator
+
+
+    //CREATE playerTurn randomizer
