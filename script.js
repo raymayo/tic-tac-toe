@@ -29,6 +29,7 @@ let playerX = 0;
 let playerO = 0;
 let draw = 0;
 let winnerState;
+let winnerArray = [];
 
 
 for (const e of buttonSelect) {
@@ -109,7 +110,9 @@ function winChecker(array, arrayName) {
         if (isPresent) {
             playState = false;
             drawState = false;
+            winnerArray = pattern;
             winnerIndicator(playerTurn);
+            console.log(winnerArray)
             setTimeout(retryScreen, 2000);
         }
     });
@@ -158,7 +161,7 @@ function retryScreen() {
     }
 
     if (drawState === false) {
-        console.log(winnerState)
+        return
         // winner.textContent = `${winner} wins!`;
     }
 }
@@ -175,7 +178,6 @@ function allReset() {
     gsap.to(box, { textContent: '', border: 'none', ease: 'expo.out' })
     gsap.from(box, { scale: 0, stagger: 0.05, ease: "expo.out" })
     playerTurn = 'X'
-
 }
 
 
@@ -194,12 +196,12 @@ function changePlayerTurn(playerTurn) {
 function winnerIndicator(playerTurn) {
     if (playerTurn === 'X' && drawState === false) {
         pointState = 0;
-        highlightWinner(playerOne)
+        highlightWinner(winnerArray)
         pointIndicator(pointState);
         winnerState = 'X';
     } else if (playerTurn === 'O' && drawState === false) {
         pointState = 1;
-        highlightWinner(playerTwo)
+        highlightWinner(winnerArray)
         console.log(playerTwo)
         winnerState = 'O';
         pointIndicator(pointState);
@@ -234,20 +236,21 @@ function pointIndicator(pointState) {
 
 
 
-function highlightWinner(winningPlayer) {
+function highlightWinner(winnerArray) {
     const squares = document.querySelectorAll('[data-num]');
     squares.forEach((e) => {
-        //change winning player to winning pattern
-        winningPlayer.forEach((player) => {
-            if (parseInt(e.getAttribute('data-num')) === player) {
+        winnerArray.forEach((i) => {
+            if (parseInt(e.getAttribute('data-num')) === i) {
                 gsap.to(e, { scale: .8, border: 'solid 2px #FF7A90', ease: 'expo.out' }, '<.1')
                 gsap.to(e, { scale: 1, ease: 'expo.out', delay: .2 }, '<.1')
             }
         })
     })
-
-
 }
+
+
+
+
 
 
 
