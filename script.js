@@ -1,3 +1,7 @@
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+
 const box = document.querySelectorAll('.box')
 const promptBtn = document.querySelectorAll('.promptBtn');
 const buttonSelect = document.getElementsByClassName('buttonSelect');
@@ -11,7 +15,9 @@ const playerTurnIndicator = document.querySelector('#playerTurnIndicator')
 const playerTurnText = document.querySelector("#playerTurnText")
 const playerOneScore = document.querySelector('#playerOneScore')
 const playerTwoScore = document.querySelector('#playerTwoScore')
-const drawScore = document.querySelector('#drawScore')
+const drawScore = document.querySelector('#drawScore');
+
+const github = document.querySelector('#github');
 
 
 
@@ -44,7 +50,7 @@ for (const e of buttonSelect) {
 
         startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out' })
         startTl.to(chooseBox, { opacity: 0, display: 'none', ease: "expo.out" }, '<')
-        startTl.to(titleScreen, { y: -100, fontSize: '4rem', ease: "expo.out" })
+        startTl.to(titleScreen, { y: -80,fontSize: '4rem', ease: "expo.out" })
         startTl.fromTo(playerScoreIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'flex', opacity: 1, y: 0, ease: 'expo.out' }, '<')
         startTl.fromTo(playerTurnIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'initial', opacity: 1, y: 0, ease: 'expo.out' }, '<')
         startTl.to(container, { display: 'grid', scale: 1, opacity: 1, ease: "expo.out" }, '<.1')
@@ -268,6 +274,14 @@ function nextGameTurn(winnerState){
             break;
     }
 }
+
+github.addEventListener('pointerenter', ()=>{
+    gsap.fromTo(github, { rotate: 0, ease: 'expo.inout' }, { rotate: 360, ease: 'expo.inout' })
+})
+
+github.addEventListener('pointerleave', () => {
+    gsap.fromTo(github, { rotate: 360, ease: 'expo.inout' }, { rotate: 0, ease: 'expo.inout' })
+})
 
 
 

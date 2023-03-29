@@ -19,11 +19,13 @@ a {
 }
 
 body {
+    display: grid;
     width: 100vw;
     height: 100vh;
-    display: grid;
+    height: calc(var(--vh, 1vh) * 100);
     align-items: start;
     justify-items: center;
+    justify-content: center;
     background-color: var(--bodyColor);
     overflow: hidden;
 }
@@ -36,7 +38,7 @@ border: solid 1px red;
     display: grid;
     gap: 2%;
     display: none;
-    grid-template-columns: repeat(3, 150px);
+    grid-template-columns: repeat(3, clamp(6.25rem, calc(5.16rem + 5.43vw), 9.38rem));
 }
 
 .box {
@@ -44,17 +46,16 @@ border: solid 1px red;
     align-items: center;
     justify-items: center;
     border-radius: 5%;
-    width: 150px;
-    height: 150px;
+    width: clamp(6.25rem, calc(5.16rem + 5.43vw), 9.38rem);
+    height: clamp(6.25rem, calc(5.16rem + 5.43vw), 9.38rem);
     font-size: 5rem;
     cursor: pointer;
-    user-select: none;
     background-color: var(--contrastColor);
     color: var(--accentColor);
 }
 
 #titleScreen {
-    font-size: 8rem;
+    font-size: clamp(3.75rem, calc(2.27rem + 7.39vw), 8.00rem);
     color: var(--accentColor);
 }
 
@@ -62,7 +63,6 @@ border: solid 1px red;
     display: grid;
     place-content: center;
     text-align: center;
-    /* margin-top: 5%; */
     transform: translate(0, 180px);
 }
 
@@ -70,7 +70,7 @@ border: solid 1px red;
     display: grid;
     place-items: center;
     width: 500px;
-    font-size: 1.5rem;
+    font-size: clamp(1.00rem, calc(0.83rem + 0.87vw), 1.50rem);
 }
 
 #chooseBox>* {
@@ -87,8 +87,8 @@ border: solid 1px red;
 }
 
 button {
-    font-size: 2.5rem;
-    padding: .2rem 2.5rem .2rem 2.5rem;
+    font-size: 2rem;
+    padding: .2em 1em;
     border-radius: 5px;
     outline: none;
     border: none;
@@ -124,7 +124,7 @@ a {
     background: rgba(21, 25, 33, 0.7);
     backdrop-filter: blur(8px);
     color: var(--textColor);
-    font-size: 5rem;
+    font-size: clamp(3.00rem, calc(2.30rem + 3.48vw), 5.00rem);
     gap: 10%;
     display: none;
 }
@@ -142,14 +142,15 @@ a {
 
 #playerTurnIndicator {
     position: absolute;
-    top: 2%;
-    left: 2%;
+    top: .5rem;
+    left: 1rem;
+
 }
 
 #playerScoreIndicator {
     position: absolute;
-    top: 2%;
-    right: 1%;
+    top: clamp(0.60rem, calc(0.46rem + 0.70vw), 1.00rem);
+    right: clamp(0.60rem, calc(0.46rem + 0.70vw), 1.00rem);
     display: flex;
     font-size: .4rem;
     column-gap: 4%;
@@ -161,7 +162,7 @@ a {
     text-align: center;
     /* border: solid 1px red; */
     padding: 4%;
-    width: 100px;
+    width: clamp(3.75rem, calc(2.88rem + 4.35vw), 6.25rem);
     background-color: var(--contrastColor);
     color: var(--textColor);
     border-radius: 3px;
@@ -175,14 +176,20 @@ a {
 .playerScores {
     display: grid;
     gap: 5%;
+    font-size: clamp(0.60rem, calc(0.46rem + 0.70vw), 1.00rem);
 }
 
 .scoreSpan {
     color: var(--accentColor);
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 
 #playerTurnText {
     color: var(--accentColor);
+    font-size: clamp(2.00rem, calc(1.65rem + 1.74vw), 3.00rem);
+}
+
+.playerTurnIndicatorClass{
+    font-size: clamp(2.00rem, calc(1.65rem + 1.74vw), 3.00rem);
 }
