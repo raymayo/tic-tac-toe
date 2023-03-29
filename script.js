@@ -37,6 +37,14 @@ let draw = 0;
 let winnerState;
 let winnerArray = [];
 
+window.onload = function(){
+    const loadedTl = gsap.timeline();
+
+    loadedTl.from(titleScreen, { opacity: 0, y: -200, ease: 'expo.out' })
+    loadedTl.from(chooseBox, { opacity: 0, y: 100, ease: 'expo.out' })
+
+}
+
 
 for (const e of buttonSelect) {
     e.addEventListener('click', () => {
