@@ -173,11 +173,10 @@ function allReset() {
     playerTwo = [];
     playState = true;
     pointState = null
-
     gsap.to(resultScreen, { opacity: 0, display: 'none', ease: "expo.out" })
     gsap.to(box, { textContent: '', border: 'none', ease: 'expo.out' })
     gsap.from(box, { scale: 0, stagger: 0.05, ease: "expo.out" })
-    playerTurn = 'X'
+    nextGameTurn(winnerState)
 }
 
 
@@ -246,6 +245,28 @@ function highlightWinner(winnerArray) {
             }
         })
     })
+}
+
+
+function nextGameTurn(winnerState){
+    switch (winnerState) {
+        case 'X':
+            playerTurn = 'O'
+            break;
+
+        case 'O':
+            playerTurn = 'X'
+            break;
+
+        case 'Draw':
+            const choices = ['X', 'O'];
+            const randomIndex = Math.floor(Math.random() * 2);
+            playerTurn = choices[randomIndex];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
