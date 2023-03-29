@@ -175,7 +175,7 @@ function retryScreen() {
     }
 
     if (drawState === false) {
-        return
+        // return
         // winner.textContent = `${winner} wins!`;
     }
 }
@@ -212,16 +212,19 @@ function winnerIndicator(playerTurn) {
         highlightWinner(winnerArray)
         pointIndicator(pointState);
         winnerState = 'X';
+        winner.textContent = 'X wins!'
     } else if (playerTurn === 'O' && drawState === false) {
         pointState = 1;
         highlightWinner(winnerArray)
         console.log(playerTwo)
         winnerState = 'O';
+        winner.textContent = 'O wins!'
         pointIndicator(pointState);
     } else if (drawState === null) {
         pointState = 2;
         pointIndicator(pointState);
         winnerState = 'Draw';
+        winner.textContent = `It's a Draw!`
     }
     return;
 }
