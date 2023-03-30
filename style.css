@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Varela Round', sans-serif;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -25,14 +26,14 @@ body {
     height: calc(var(--vh, 1vh) * 100);
     align-items: start;
     justify-items: center;
-    justify-content: center;
     background-color: var(--bodyColor);
     overflow: hidden;
+    /* border: solid 1px magenta; */
 }
 
-/* body > *{
-border: solid 1px red;
-} */
+body > *{
+/* border: solid 1px red; */
+}
 
 #container {
     display: grid;
@@ -60,23 +61,28 @@ border: solid 1px red;
 }
 
 #startScreen {
-    display: grid;
-    place-content: center;
     text-align: center;
     transform: translate(0, 180px);
+}
+
+#startScreen > *{
+    /* border: solid 1px yellow; */
 }
 
 #chooseBox {
     display: grid;
     place-items: center;
-    width: 500px;
-    font-size: clamp(1.00rem, calc(0.83rem + 0.87vw), 1.50rem);
+    place-content: center;
+    gap: 1rem;
+}
+
+#chooseBox h1{
+    font-size: clamp(2.50rem, calc(1.98rem + 2.61vw), 4.00rem);
 }
 
 #chooseBox>* {
     color: var(--textColor);
-    padding: 2%;
-    /* border: solid 1px red; */
+    /* border: solid 1px yellow; */
 }
 
 #buttonContainer {

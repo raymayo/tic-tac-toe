@@ -56,7 +56,7 @@ for (const e of buttonSelect) {
         console.log(`playState: ${playState}`)
         console.log('initial symbol: ' + playerTurn)
 
-        startTl.fromTo(e, { scale: .8, ease: 'expo.out' }, { scale: 1, ease: 'expo.out' })
+        startTl.fromTo(e, { scale: .5, ease: 'expo.out' }, { scale: 1, ease: 'expo.out' })
         startTl.to(chooseBox, { opacity: 0, display: 'none', ease: "expo.out" }, '<')
         startTl.to(titleScreen, { y: -80,fontSize: '4rem', ease: "expo.out" })
         startTl.fromTo(playerScoreIndicator, { display: 'none', opacity: 0, y: -100, ease: 'expo.out' }, { display: 'flex', opacity: 1, y: 0, ease: 'expo.out' }, '<')
@@ -127,7 +127,7 @@ function winChecker(array, arrayName) {
             winnerArray = pattern;
             winnerIndicator(playerTurn);
             console.log(winnerArray)
-            setTimeout(retryScreen, 2000);
+            setTimeout(retryScreen, 1500);
         }
     });
 
@@ -142,7 +142,7 @@ function drawChecker() {
     }
     if (drawState === null) {
         winnerIndicator(playerTurn);
-        setTimeout(retryScreen, 2000);
+        setTimeout(retryScreen, 500);
     }
 }
 
@@ -169,9 +169,9 @@ for (const e of box) {
 
 function retryScreen() {
     let winner = document.querySelector('#winner');
-    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, backdropFilter: 'blur(0px)', ease: "expo.inout" }, { opacity: 1, backdropFilter: 'blur(5px)', ease: "expo.inout" })
+    gsap.fromTo(resultScreen, { display: 'grid', opacity: 0, ease: "expo.inout" }, { opacity: 1, ease: "expo.inout" })
     if (drawState === null) {
-        winner.textContent = `It's a Draw!`;
+        winner.textContent = `Draw!`;
     }
 
     if (drawState === false) {
@@ -224,7 +224,7 @@ function winnerIndicator(playerTurn) {
         pointState = 2;
         pointIndicator(pointState);
         winnerState = 'Draw';
-        winner.textContent = `It's a Draw!`
+        winner.textContent = `Draw!`
     }
     return;
 }
