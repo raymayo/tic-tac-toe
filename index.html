@@ -1,60 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="icon" type="image/x-icon" href="./fav.svg">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-    <div id="startScreen">
-            <h1 id="titleScreen">Tic-Tac-Toe</h1>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tic Tac Toe</title>
+		<link rel="icon" type="image/x-icon" href="./fav.svg" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	</head>
+	<body>
+		<div id="startScreen">
+			<h1 id="titleScreen">Tic-Tac-Toe</h1>
+		</div>
 
-    <div id="chooseBox">
-            <h1>Pick your sign:</h1>
-            <div id="buttonContainer">
-                <button class="buttonSelect">X</button>
-                <button class="buttonSelect">O</button>
-            </div>
-        </div>
-    
+		<div id="chooseBox">
+			<h1>Pick your sign:</h1>
+			<div id="buttonContainer">
+				<button class="buttonSelect">X</button>
+				<button class="buttonSelect">O</button>
+			</div>
+		</div>
 
-    <div id="container">
-        <div class="box" data-num=1></div>
-        <div class="box" data-num=2></div>
-        <div class="box" data-num=3></div>
-        <div class="box" data-num=4></div>
-        <div class="box" data-num=5></div>
-        <div class="box" data-num=6></div>
-        <div class="box" data-num=7></div>
-        <div class="box" data-num=8></div>
-        <div class="box" data-num=9></div>
-    </div>
-    <footer>Copyright © 2023 raymayo  <a id="github" class="fa fa-github" style="font-size:24px" href="https://github.com/raymayo" target="_blank"></a></footer>
+		<div id="container">
+			<div class="box" data-num="1"></div>
+			<div class="box" data-num="2"></div>
+			<div class="box" data-num="3"></div>
+			<div class="box" data-num="4"></div>
+			<div class="box" data-num="5"></div>
+			<div class="box" data-num="6"></div>
+			<div class="box" data-num="7"></div>
+			<div class="box" data-num="8"></div>
+			<div class="box" data-num="9"></div>
+		</div>
+		<footer>
+			Copyright © 2023 raymayo
+			<a
+				id="github"
+				class="fa fa-github"
+				style="font-size: 24px"
+				href="https://github.com/raymayo"
+				target="_blank"></a>
+		</footer>
 
-    <div id="resultScreen">
-        <h1 id="winner">null</h1>
-        <button id="retryBtn">Play Again?</button>
-    </div>
+		<div id="resultScreen">
+			<h1 id="winner">null</h1>
+			<button id="retryBtn">Play Again?</button>
+		</div>
 
-    <div id="playerTurnIndicator">
-        <h1 class="playerTurnIndicatorClass"><span id="playerTurnText"></span>'s Turn</h1>
-    </div>
-    <div id="playerScoreIndicator">
-        <h1  class="playerScores">Player X<span id="playerOneScore" class="scoreSpan">0</span></h1>
-        <h1  class="playerScores">Player O<span id="playerTwoScore" class="scoreSpan">0</span></h1>
-        <h1  class="playerScores">Draw<span id="drawScore" class="scoreSpan">0</span></h1>
-    </div>
+		<div id="playerTurnIndicator">
+			<h1 class="playerTurnIndicatorClass">
+				<span id="playerTurnText"></span>'s Turn
+			</h1>
+		</div>
+		<div id="playerScoreIndicator">
+			<h1 class="playerScores">
+				Player X<span id="playerOneScore" class="scoreSpan">0</span>
+			</h1>
+			<h1 class="playerScores">
+				Player O<span id="playerTwoScore" class="scoreSpan">0</span>
+			</h1>
+			<h1 class="playerScores">
+				Draw<span id="drawScore" class="scoreSpan">0</span>
+			</h1>
+		</div>
 
-    <script src="./script.js"></script>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-</body>
+		<script src="./script.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+	</body>
 </html>
